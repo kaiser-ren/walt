@@ -117,12 +117,13 @@ void bqPlayerCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
             te_play = uptimeMicros();
         }
         buffersRemaining--;
-
+        //__android_log_print(ANDROID_LOG_INFO, APPNAME, "buffersRemaining");
         SLresult result = (*bqPlayerBufferQueue)->Enqueue(bqPlayerBufferQueue, beepBuffer,
                                                           bufferSizeInBytes);
         (void)result;
         assert(SL_RESULT_SUCCESS == result);
     } else if (warmedUp) {      // stop tone but keep playing silence
+        //__android_log_print(ANDROID_LOG_INFO, APPNAME, "warmedUp");
         SLresult result = (*bqPlayerBufferQueue)->Enqueue(bqPlayerBufferQueue, silenceBuffer,
                                                  bufferSizeInBytes);
         assert(SL_RESULT_SUCCESS == result);

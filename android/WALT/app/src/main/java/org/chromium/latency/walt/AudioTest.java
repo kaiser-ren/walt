@@ -201,14 +201,16 @@ class AudioTest extends BaseTest {
         if (audioMode == AudioMode.CONTINUOUS) {
             startWarmTest();
         }
-        try {
-            waltDevice.syncClock();
-            waltDevice.startListener();
-        } catch (IOException e) {
-            logger.log("Error starting test: " + e.getMessage());
-            if (testStateListener != null) testStateListener.onTestStoppedWithError();
-            return;
-        }
+
+        //try {
+        //    waltDevice.syncClock();
+        //    waltDevice.startListener();
+        //} catch (IOException e) {
+        //    logger.log("Error starting test: " + e.getMessage());
+       //     if (testStateListener != null) testStateListener.onTestStoppedWithError();
+       //     return;
+       // }
+
         deltas_mic.clear();
         deltas_play2queue.clear();
         deltas_queue2wire.clear();
@@ -267,7 +269,7 @@ class AudioTest extends BaseTest {
     private Runnable playBeepRunnable = new Runnable() {
         @Override
         public void run() {
-            // debug: logger.log("\nPlaying tone...");
+            //debug: logger.log("\nPlaying tone...");
 
             // Check if we saw some transitions without beeping, might be noise audio cable.
             if (initiatedBeeps == 0 && detectedBeeps > 1) {
@@ -294,13 +296,13 @@ class AudioTest extends BaseTest {
                 }
             }
 
-            try {
-                waltDevice.command(WaltDevice.CMD_AUDIO);
-            } catch (IOException e) {
-                logger.log("Error sending command AUDIO: " + e.getMessage());
-                return;
-            }
-            long javaBeepTime = waltDevice.clock.micros();
+            //try {
+            //    waltDevice.command(WaltDevice.CMD_AUDIO);
+           // } catch (IOException e) {
+            //    logger.log("Error sending command AUDIO: " + e.getMessage());
+            //    return;
+           // }
+            /*long javaBeepTime = waltDevice.clock.micros();
             lastBeepTime = playTone() - waltDevice.clock.baseTime;
             double dtJ2N = (lastBeepTime - javaBeepTime)/1000.;
             deltasJ2N.add(dtJ2N);
@@ -312,8 +314,9 @@ class AudioTest extends BaseTest {
             logger.log(String.format(Locale.US,
                     "Called playTone(), dt Java to native = %.3f ms",
                     dtJ2N
-            ));
+            ));*/
 
+            playTone();
 
             // Repost doBeep to some far away time to blink again even if nothing arrives from
             // Teensy. This callback will almost always get cancelled by onIncomingTimestamp()

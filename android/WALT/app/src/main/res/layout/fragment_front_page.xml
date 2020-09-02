@@ -132,7 +132,7 @@
 
                 <TextView
                     style="@style/MenuTextTop"
-                    android:text="Audio latency" />
+                    android:text="BT Audio latency" />
 
             </LinearLayout>
         </LinearLayout>
